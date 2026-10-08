@@ -4,6 +4,7 @@ Row-vector notation:
     E has shape V x d   (one row per word, used for the center word)
     U has shape d x V   (one column per word, used for the context word)
 """
+import math
 
 
 def get_embedding(E, i):
@@ -41,3 +42,23 @@ def forward(E, U, i):
     h = get_embedding(E, i)
     s = compute_scores(h, U)
     return h, s
+
+
+def compute_probabilities(s):
+    """Numerically stable softmax.
+
+    Inputs:  s (list of V scores)
+    Output:  (m, a, p) where
+                 m = max(s)
+                 a[j] = exp(s[j] - m)
+                 p[j] = a[j] / sum(a)
+             m and a are returned because the stable loss reuses them.
+    Raises:  ValueError if s is empty
+    """
+    if not s:
+        raise ValueError("scores are empty")
+    m = max(s)
+    a = [math.exp(x - m) for x in s]
+    total = sum(a)
+    p = [x / total for x in a]
+    return m, a, p
