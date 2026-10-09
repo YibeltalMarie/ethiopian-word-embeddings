@@ -1,6 +1,7 @@
 import pytest
 from src.data.preprocessing import (remove_nested, strip_markup, split_sentences,
-                                    tokenize, page_to_sentences)
+                                    tokenize, page_to_sentences,
+                                    deduplicate_sentences)
 
 
 # ---------- remove_nested ----------
@@ -133,3 +134,26 @@ def test_sentences_feed_generate_pairs_without_cross_sentence_pairs():
     from src.data.pairs import generate_pairs
     sents = page_to_sentences("ሀ ለ። መ ሠ።")
     assert generate_pairs(sents, 5) == [("ሀ", "ለ"), ("ለ", "ሀ"), ("መ", "ሠ"), ("ሠ", "መ")]
+
+
+# ---------- initialisms and duplicates ----------
+
+def test_initialisms_are_joined_into_one_token():
+    assert tokenize("ከ1892 ዓ.ም አስቀድሞ") == ["ከ1892", "ዓም", "አስቀድሞ"]
+    assert tokenize("በ2010 እ.ኤ.አ. ተወለደ") == ["በ2010", "እኤአ", "ተወለደ"]
+    assert tokenize("ዶ.ር ተስፋዬ") == ["ዶር", "ተስፋዬ"]
+
+
+def test_initialism_rule_does_not_merge_ordinary_words():
+    assert tokenize("ቃል.ቃል") == ["ቃል", "ቃል"]          # multi-letter pieces stay split
+    assert tokenize("ዓ.ምሕረት") == ["ዓ", "ምሕረት"]       # not a complete initialism
+    assert tokenize("ነው. ሀ ለ") == ["ነው", "ሀ", "ለ"]     # ordinary period + space
+
+
+def test_deduplicate_keeps_first_occurrence_and_order():
+    s = [["a", "b"], ["c", "d"], ["a", "b"], ["e", "f"], ["c", "d"]]
+    s_before = [list(x) for x in s]
+    assert deduplicate_sentences(s) == [["a", "b"], ["c", "d"], ["e", "f"]]
+    assert s == s_before                                  # input not modified
+    assert deduplicate_sentences([]) == []
+    assert deduplicate_sentences([["a", "b"], ["b", "a"]]) == [["a", "b"], ["b", "a"]]

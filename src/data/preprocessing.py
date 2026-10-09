@@ -27,6 +27,9 @@ _QUOTES = re.compile(r"'{2,}")
 _HEADING = re.compile(r"=+.*?=+")
 _LIST_MARKERS = re.compile(r"^[*#:;]+")
 _SENTENCE_END = re.compile(r"[።፧?!]+")
+# Initialisms such as ዓ.ም, እ.ኤ.አ, ዶ.ር: single Ethiopic letters joined by periods.
+_INITIALISM = re.compile(
+    r"(?<![\u1200-\u135A])[\u1200-\u135A](?:\.[\u1200-\u135A])+(?![\u1200-\u135A])")
 
 
 def _match_end(text, start, open_tok, close_tok):
@@ -184,12 +187,17 @@ def tokenize(sentence):
     Separators: whitespace, every Unicode punctuation (P*) and symbol (S*)
     character (this includes the Ethiopic ፡ ፣ ፤ ፥ ፦ and ASCII hyphen, so
     ደቡብ-ምዕራብ becomes two tokens), and invisible control/format characters.
+    Exception: initialisms made of single Ethiopic letters joined by periods
+    (ዓ.ም, እ.ኤ.አ) are first joined into one token (ዓም, እኤአ), because
+    splitting them produced meaningless single-letter tokens among the most
+    frequent in the corpus.
     Kept inside tokens: letters, digits, Ethiopic numerals, combining marks.
     No lowercasing and no Unicode normalization (baseline; tested later as a
     controlled experiment).
 
     Output: list of non-empty strings.
     """
+    sentence = _INITIALISM.sub(lambda m: m.group().replace(".", ""), sentence)
     spaced = "".join(" " if _is_separator(ch) else ch for ch in sentence)
     return spaced.split()
 
@@ -208,3 +216,24 @@ def page_to_sentences(text, title="", min_tokens=2):
         if len(tokens) >= min_tokens:
             result.append(tokens)
     return result
+
+
+def deduplicate_sentences(sentences):
+    """Drop sentences identical to an earlier one; keep the first occurrence.
+
+    Reason: templated pages repeat the same boilerplate hundreds of times
+    (for example a calendar-converter note 366 times), which would overweight
+    those word pairs. Cost: a genuinely repeated short sentence is also
+    collapsed to one copy.
+
+    Inputs:  sentences (list of token lists)
+    Output:  new list in the original order; the input is not modified
+    """
+    seen = set()
+    unique = []
+    for sentence in sentences:
+        key = tuple(sentence)
+        if key not in seen:
+            seen.add(key)
+            unique.append(sentence)
+    return unique
