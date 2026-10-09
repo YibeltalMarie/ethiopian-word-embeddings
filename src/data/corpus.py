@@ -135,3 +135,48 @@ def load_provenance(path):
             raise ValueError(f"{path} is not valid JSON: {err}") from err
     validate_record(record)
     return record
+
+
+def iter_wiki_pages(path):
+    """Yield (title, wikitext) for every real article in a MediaWiki XML dump.
+
+    Works on .xml and .xml.bz2 files and reads one page at a time, so memory
+    use stays small.
+
+    Kept:    pages in namespace 0 (articles) that are not redirects and have
+             non-empty text
+    Skipped: every other namespace, redirects, and pages with no text
+    Order:   the order of the dump (deterministic)
+    The raw file is only read, never modified.
+
+    Raises:  FileNotFoundError if the file is missing, ValueError if the XML
+             cannot be parsed
+    """
+    import bz2
+    import xml.etree.ElementTree as ET
+
+    def local(tag):
+        return tag.rsplit("}", 1)[-1]
+
+    opener = bz2.open if str(path).endswith(".bz2") else open
+    with opener(path, "rb") as f:
+        try:
+            for _, elem in ET.iterparse(f, events=("end",)):
+                if local(elem.tag) != "page":
+                    continue
+                title, ns, text, redirect = "", None, "", False
+                for child in elem.iter():
+                    name = local(child.tag)
+                    if name == "title":
+                        title = child.text or ""
+                    elif name == "ns":
+                        ns = (child.text or "").strip()
+                    elif name == "redirect":
+                        redirect = True
+                    elif name == "text":
+                        text = child.text or ""
+                elem.clear()
+                if ns == "0" and not redirect and text.strip():
+                    yield title, text
+        except ET.ParseError as err:
+            raise ValueError(f"could not parse XML in {path}: {err}") from err
