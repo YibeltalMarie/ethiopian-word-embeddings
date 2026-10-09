@@ -1,0 +1,16 @@
+{
+  "source_id": "amwiki-20260901",
+  "source_name": "Amharic Wikipedia (amwiki) pages-articles-multistream dump, 2026-09-01",
+  "URL": "https://dumps.wikimedia.org/amwiki/20260901/amwiki-20260901-pages-articles-multistream.xml.bz2",
+  "language": "Amharic (am)",
+  "license": "CC BY-SA (3.0/4.0, exact version to confirm) and GFDL, per the Wikimedia dumps legal page",
+  "access_date": "2026-10-09",
+  "original_format": "MediaWiki XML export, bz2-compressed",
+  "original_size": 10032500,
+  "sha256": "61deab0e1f33c56d5fd1212a9e5e8d4258211b01e181f747e3a7106285fe9706",
+  "description": "Complete snapshot of Amharic Wikipedia article pages. Baseline corpus.",
+  "processing_steps": [
+    "downloaded unmodified; raw file is never edited"
+  ],
+  "notes": "Attribution required; adaptations must be shared under the same license. Dumps may contain unremoved copyright infringements. Redistribution of derived text and vectors still to be decided before publication."
+}
