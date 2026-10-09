@@ -1,0 +1,13 @@
+{
+ "corpus_source": "amwiki-20260901",
+ "corpus_version": {
+  "dump_date": "20260901",
+  "dump_sha256": "61deab0e1f33c56d5fd1212a9e5e8d4258211b01e181f747e3a7106285fe9706",
+  "slice_sentences": 10000,
+  "slice_seed": 42,
+  "min_freq": 20
+ },
+ "epochs_completed": 8,
+ "final_loss": 5.423324225158643,
+ "license_note": "Derived from Amharic Wikipedia text (CC BY-SA / GFDL); attribution and share-alike apply; publication terms to be confirmed."
+}

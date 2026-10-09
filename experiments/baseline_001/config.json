@@ -1,0 +1,36 @@
+{
+ "experiment_id": "baseline_001",
+ "date": "2026-10-09",
+ "language": "Amharic (am)",
+ "corpus_source": "amwiki-20260901",
+ "corpus_version": {
+  "dump_date": "20260901",
+  "dump_sha256": "61deab0e1f33c56d5fd1212a9e5e8d4258211b01e181f747e3a7106285fe9706",
+  "slice_sentences": 10000,
+  "slice_seed": 42,
+  "min_freq": 20
+ },
+ "preprocessing_version": "repository commit 229c426 (preprocessing and vocabulary code)",
+ "vocabulary_size": 665,
+ "embedding_dimension": 16,
+ "context_window": 2,
+ "learning_rate": 0.1,
+ "epochs_planned": 8,
+ "random_seed": {
+  "init_seed": 1,
+  "shuffle_seed": 5
+ },
+ "initialization_method": "uniform(-0.1, 0.1) for every entry of E and U, random.Random(init_seed), E filled before U",
+ "pair_shuffle_policy": "pair list reshuffled every epoch with random.Random(shuffle_seed * 1000003 + epoch)",
+ "pilot_evidence": {
+  "setup": "500-sentence slice, 8,872 pairs, window 2, d 16, scale 0.1, 4 epochs, lr varied only",
+  "J_after_4_epochs_from_6.5001": {
+   "0.02": 6.1723,
+   "0.05": 5.4736,
+   "0.1": 4.974,
+   "0.25": 4.7218
+  },
+  "all_rates_stable_with_no_rising_epoch": true
+ },
+ "decision": "lr = 0.1: stable in the pilot and fast enough; 0.25 dropped fastest but was the largest rate tried and the baseline makes about 14x more updates per epoch, so the stability edge was not found. 0.1 is therefore a safe choice, not a proven optimum. Epochs are checkpointed, so fewer than planned may be completed; the results record states the epochs actually completed."
+}

@@ -1,0 +1,13 @@
+{
+ "experiment_id": "baseline_001",
+ "language": "Amharic (am)",
+ "embedding_dimension": 16,
+ "context_window": 2,
+ "learning_rate": 0.1,
+ "random_seed": {
+  "init_seed": 1,
+  "shuffle_seed": 5
+ },
+ "initialization_method": "uniform(-0.1, 0.1) for every entry of E and U, random.Random(init_seed), E filled before U",
+ "pair_shuffle_policy": "pair list reshuffled every epoch with random.Random(shuffle_seed * 1000003 + epoch)"
+}
