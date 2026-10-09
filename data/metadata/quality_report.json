@@ -1,0 +1,199 @@
+{
+ "documents": {
+  "article_pages": 16367,
+  "pages_without_usable_sentences": 2115,
+  "pages_with_usable_sentences": 14252
+ },
+ "sentences": {
+  "before_deduplication": 147025,
+  "after_deduplication": 138271,
+  "exact_duplicates_removed": 8754,
+  "duplicate_percent": 5.95
+ },
+ "tokens": {
+  "total": 1758641,
+  "distinct": 248911,
+  "seen_once": 146886,
+  "seen_at_least_5": 39084,
+  "seen_at_least_10": 20251,
+  "seen_at_least_20": 10499,
+  "most_frequent_20": [
+   [
+    "ነው",
+    25575
+   ],
+   [
+    "እና",
+    24531
+   ],
+   [
+    "ላይ",
+    13573
+   ],
+   [
+    "ውስጥ",
+    10863
+   ],
+   [
+    "ነበር",
+    9768
+   ],
+   [
+    "ወደ",
+    8938
+   ],
+   [
+    "እንደ",
+    7292
+   ],
+   [
+    "ዓም",
+    6954
+   ],
+   [
+    "ጊዜ",
+    6408
+   ],
+   [
+    "ጋር",
+    6119
+   ],
+   [
+    "ሲሆን",
+    6070
+   ],
+   [
+    "ወይም",
+    5876
+   ],
+   [
+    "በኋላ",
+    5704
+   ],
+   [
+    "ግን",
+    5626
+   ],
+   [
+    "ቀን",
+    5194
+   ],
+   [
+    "ዘመን",
+    4960
+   ],
+   [
+    "በ",
+    4813
+   ],
+   [
+    "እስከ",
+    4804
+   ],
+   [
+    "ይህ",
+    4678
+   ],
+   [
+    "ምሳሌ",
+    4244
+   ]
+  ]
+ },
+ "sentence_length_tokens": {
+  "min": 2,
+  "mean": 12.72,
+  "median": 10,
+  "p95": 30,
+  "max": 637
+ },
+ "characters_in_final_tokens": {
+  "ethiopic_letters": 6199697,
+  "ascii_letters": 324073,
+  "ascii_digits": 209496,
+  "ethiopic_numerals": 29982,
+  "other": 30511
+ },
+ "most_common_other_characters": [
+  [
+   "َ",
+   "U+064E",
+   2046
+  ],
+  [
+   "ا",
+   "U+0627",
+   946
+  ],
+  [
+   "ل",
+   "U+0644",
+   930
+  ],
+  [
+   "ِ",
+   "U+0650",
+   802
+  ],
+  [
+   "ُ",
+   "U+064F",
+   610
+  ],
+  [
+   "а",
+   "U+0430",
+   579
+  ],
+  [
+   "о",
+   "U+043E",
+   575
+  ],
+  [
+   "ْ",
+   "U+0652",
+   569
+  ],
+  [
+   "ن",
+   "U+0646",
+   550
+  ],
+  [
+   "م",
+   "U+0645",
+   545
+  ],
+  [
+   "и",
+   "U+0438",
+   476
+  ],
+  [
+   "و",
+   "U+0648",
+   467
+  ],
+  [
+   "ي",
+   "U+064A",
+   450
+  ],
+  [
+   "е",
+   "U+0435",
+   402
+  ],
+  [
+   "н",
+   "U+043D",
+   383
+  ]
+ ],
+ "discarded_text": {
+  "raw_characters": 16514349,
+  "characters_in_final_tokens": 6793759,
+  "retained_character_percent": 41.14
+ }
+}

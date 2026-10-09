@@ -1,0 +1,19 @@
+{
+ "source_id": "amwiki-20260901",
+ "preprocessing_code_commit": "6a9285d",
+ "sentences_in_full_corpus": 138271,
+ "slice_sentences": 10000,
+ "slice_seed": 42,
+ "min_freq": 20,
+ "require_ethiopic_letter": true,
+ "out_of_vocabulary_policy": "tokens deleted from the sentence; sentences left with fewer than 2 tokens dropped",
+ "vocabulary_size": 665,
+ "apply_stats": {
+  "tokens_in": 126470,
+  "tokens_kept": 43837,
+  "sentences_in": 10000,
+  "sentences_kept": 7274,
+  "words_unused": 0
+ },
+ "license_note": "Derived from Amharic Wikipedia text (CC BY-SA / GFDL); attribution and share-alike apply."
+}
