@@ -180,3 +180,21 @@ def iter_wiki_pages(path):
                     yield title, text
         except ET.ParseError as err:
             raise ValueError(f"could not parse XML in {path}: {err}") from err
+
+
+def sample_sentences(sentences, n, seed):
+    """Seeded random sample of n sentences, kept in their original order.
+
+    Uses a private random.Random(seed), so the same (sentences, n, seed)
+    always gives the same sample and global random state is untouched.
+    If n >= len(sentences), all sentences are returned.
+
+    Raises:  ValueError if n < 1
+    """
+    import random
+    if n < 1:
+        raise ValueError(f"n must be >= 1, got {n}")
+    if n >= len(sentences):
+        return list(sentences)
+    chosen = sorted(random.Random(seed).sample(range(len(sentences)), n))
+    return [sentences[i] for i in chosen]
